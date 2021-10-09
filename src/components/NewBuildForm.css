@@ -1,0 +1,35 @@
+.New-build-form {
+	width: 100%;
+}
+
+.New-build-form__title {
+	margin: 0 0 12px;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.New-build-form__text {
+	margin: 0 0 12px;
+}
+
+.New-build-form__form-buttons {
+	margin-top: 12px;
+}
+
+.New-build-form__form-buttons > .Button {
+	width: 100%;
+	margin-bottom: 8px;
+	margin-right: 0;
+}
+
+@media (min-width: 480px) {
+	.New-build-form__title {
+		font-size: 18px;
+	}
+
+	.New-build-form__form-buttons > .Button {
+		width: auto;
+		margin-bottom: 0;
+		margin-right: 8px;
+	}
+}

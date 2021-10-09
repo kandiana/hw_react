@@ -1,0 +1,56 @@
+.Form__inputs {
+	margin-bottom: 20px;
+}
+
+.Form__buttons {
+	display: flex;
+	flex-direction: column;
+}
+
+.Form__buttons .Button {
+	width: 100%;
+	margin-right: 0;
+	margin-bottom: 12px;
+}
+
+.Form__error-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.Form__error-wrapper .Button {
+	width: 100%;
+}
+
+.Form__error-message {
+	font-size: 16px;
+	font-weight: 500;
+	text-align: center;
+	color: red;
+}
+
+@media (min-width: 480px) {
+	.Form__inputs {
+		margin-bottom: 24px;
+	}
+
+	.Form__buttons {
+		flex-direction: row;
+	}
+
+	.Form__buttons .Button {
+		width: auto;
+		margin-right: 8px;
+		margin-bottom: 0;
+	}
+
+	.Form__error-wrapper .Button {
+		width: auto;
+	}
+
+	.Form__error-message {
+		font-size: 18px;
+		padding: 0 10px;
+	}
+}

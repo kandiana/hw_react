@@ -1,0 +1,30 @@
+.Footer {
+	padding: 12px 0;
+	background-color: #f0f2f3;
+	line-height: 16px;
+	color: #7f8285;
+}
+
+.Footer__nav {
+	margin-bottom: 8px;
+}
+
+.Footer__copy {
+	margin: 0;
+}
+
+@media (min-width: 480px) {
+	.Footer {
+		padding: 8px 0;
+	}
+
+	.Footer__wrapper {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.Footer__nav {
+		margin-bottom: 0;
+	}
+}
