@@ -1,0 +1,103 @@
+:root {
+	--button-height-normal: 36px;
+	--button-height-small: 28px;
+	--button-border-width: 2px;
+}
+
+.Button {
+	height: var(--button-height-normal);
+	margin-right: 8px;
+	padding: 0 20px;
+
+	border: var(--button-border-width) solid transparent;
+	box-sizing: border-box;
+
+	font-family: inherit;
+	font-size: inherit;
+	color: black;
+	text-decoration: none;
+	text-align: center;
+	line-height: calc(var(--button-height-normal) - 2 * var(--button-border-width));
+
+	cursor: pointer;
+	white-space: nowrap;
+
+	background-color: #e6e6e6;
+	border-radius: 4px;
+}
+
+.Button:last-child[class] {
+	margin: 0;
+}
+
+.Button:hover {
+	background-color: #dbdbdb;
+}
+
+.Button:focus {
+	outline: none;
+	border-color: #b3b3b3;
+}
+
+.Button_yellow {
+	margin-bottom: 12px;
+	background-color: #ffcc00;
+}
+
+.Button_yellow:hover {
+	background-color: #f2c200;
+}
+
+.Button_yellow:focus {
+	border-color: #b38f00;
+}
+
+.Button_white {
+	background-color: #ffffff;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.Button_white:hover {
+	background-color: #cccccc;
+}
+
+.Button_white:focus {
+	border-color: rgba(0, 0, 0, 0.6);
+}
+
+.Button_small {
+	min-width: var(--button-height-small);
+	height: var(--button-height-small);
+	padding: 0 6px;
+	line-height: calc(var(--button-height-small) - 2 * var(--button-border-width));
+}
+
+.Button:disabled {
+	background-color: #f2f2f2;
+	color: #7f7f7f;
+	cursor: auto;
+}
+
+.Button__icon {
+	vertical-align: middle;
+}
+
+.Button__text {
+	display: none;
+	padding-left: 5px;
+	vertical-align: middle;
+}
+
+@media (min-width: 480px) {
+	.Button__text {
+		display: inline;
+	}
+
+	.Button_yellow {
+		margin-bottom: 0;
+	}
+
+	.Button_small:not(:last-child) {
+		padding: 0 8px;
+	}
+}
