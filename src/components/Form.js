@@ -1,6 +1,7 @@
 import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
 import ReactDOM from 'react-dom'
+import { connect } from 'react-redux'
 
 import FormControl from './FormControl'
 import Button from './Button'
@@ -43,25 +44,27 @@ function Form(props) {
 
 	function saveSettings(event) {
 		// save input settings
-		props.update(() => {
-			const newSettings = {}
-			const formElements = event.target.elements
+		const newSettings = {}
+		const formElements = event.target.elements
 
-			for (let index in formElements) {
-				const element = formElements[index]
+		for (let index in formElements) {
+			const element = formElements[index]
 
-				// saving only unempty input data
-				if (element.tagName === 'INPUT' && element.name && element.value) {
-					if (element.dataset.value === 'number') {
-						newSettings[element.name] = Number(element.value)
-					} else {
-						newSettings[element.name] = element.value
-					}
+			// saving only values from unempty inputs
+			if (element.tagName === 'INPUT' && element.name && element.value) {
+				if (element.dataset.value === 'number') {
+					newSettings[element.name] = Number(element.value)
+				} else {
+					newSettings[element.name] = element.value
 				}
 			}
+		}
 
-			return newSettings
-		})
+		props.dispatch({ type: 'SAVE_INPUT_SETTINGS', input: newSettings })
+
+		const oldSettings = JSON.parse(localStorage.getItem('settings'))
+		const wholeSettings = { ...oldSettings, ...newSettings }
+		localStorage.setItem('settings', JSON.stringify(wholeSettings))
 
 		// go back to root address
 		history.push('/')
@@ -94,31 +97,31 @@ function Form(props) {
 						label="GitHub repository "
 						required={true}
 						placeholder="user-name/repo-name"
-						value={props.settings.repository}
+						value={props.repository}
 						data-value="text"
 					/>
 					<FormControl
 						id="build-command"
-						name="build-command"
+						name="buildCommand"
 						label="Build command "
 						required={true}
 						placeholder="build command"
-						value={props.settings['build-command']}
+						value={props.buildCommand}
 						data-value="text"
 					/>
 					<FormControl
 						id="main-branch"
-						name="main-branch"
+						name="mainBranch"
 						label="Main branch"
 						placeholder="main branch name"
-						value={props.settings['main-branch']}
+						value={props.mainBranch}
 						data-value="text"
 					/>
 					<FormControl
 						id="synchronization-interval"
 						name="interval"
 						label="Synchronize every"
-						value={props.settings.interval}
+						value={props.interval}
 						oneline={true}
 						dimension="minutes"
 						onInput={filterNonNumbers}
@@ -150,4 +153,9 @@ function Form(props) {
 	)
 }
 
-export default Form
+export default connect((state) => ({
+	repository: state.repository,
+	buildCommand: state.buildCommand,
+	mainBranch: state.mainBranch,
+	interval: state.interval,
+}))(Form)

@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
-import { buildHistory } from '../mock-data/build-history'
+import { connect } from 'react-redux'
 
 import { ReactComponent as CogIcon } from '../imgs/cog-icon.svg'
 import { ReactComponent as PlayIcon } from '../imgs/play-icon.svg'
@@ -17,8 +17,6 @@ import NewBuildForm from '../components/NewBuildForm'
 import './History.css'
 
 function History(props) {
-	localStorage.setItem('settings', JSON.stringify(props.settings))
-
 	const headerNavButtons = [
 		<Button
 			key="build"
@@ -39,22 +37,29 @@ function History(props) {
 		/>,
 	]
 
-	// number of build cards that shows at loading page
-	const startnumberOfCards = props.cardsSetLength
-	// if not all build cards are shown, 'show more' button appears, else it doesn't appear
-	const showMoreButtonType = `Button_changing-size ${buildHistory.length > startnumberOfCards ? '' : 'hidden'}`
-	// state to follow number of rendered cards
-	const [numberOfBuildCards, updateNumber] = useState(startnumberOfCards)
+	// render first batch of build history cards (only once after initial component render)
+	useEffect(() => {
+		props.dispatch({ type: 'CLEAR_BUILD_HISTORY' })
+		props.dispatch({ type: 'ADD_BUILD_HISTORY_ITEMS' })
+
+		return () => {
+			props.dispatch({ type: 'CLEAR_BUILD_HISTORY' })
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+	// if not all build cards are shown, render 'show more' button
+	const showMoreButtonType = `Button_changing-size ${props.build.renderMore ? '' : 'hidden'}`
 
 	function renderCards() {
 		const arrayOfCards = []
-		for (let i = 0; i < Math.min(buildHistory.length, numberOfBuildCards); i++) {
+		for (let i = 0; i < props.build.history.length; i++) {
 			arrayOfCards.push(
 				<BuildCard
-					key={buildHistory[i].id}
-					id={buildHistory[i].id}
-					status={buildHistory[i].status}
-					content={buildHistory[i].content}
+					key={props.build.history[i].id}
+					id={props.build.history[i].id}
+					status={props.build.history[i].status}
+					content={props.build.history[i].content}
 				/>
 			)
 		}
@@ -67,11 +72,8 @@ function History(props) {
 	}
 
 	// renders next batch of build cards
-	function showMore(event) {
-		if (numberOfBuildCards + startnumberOfCards >= buildHistory.length) {
-			event.target.classList.add('hidden')
-		}
-		updateNumber((numberOfBuildCards) => numberOfBuildCards + startnumberOfCards)
+	function showMore() {
+		props.dispatch({ type: 'ADD_BUILD_HISTORY_ITEMS' })
 	}
 
 	// modal window behaviour control
@@ -83,7 +85,7 @@ function History(props) {
 
 	return (
 		<>
-			<Header children={headerNavButtons} page="history" title={props.settings.repository} />
+			<Header children={headerNavButtons} page="history" title={props.repository} />
 			<main className="History">
 				<h2 className="title visually-hidden">Build history</h2>
 				<div className="container">
@@ -104,4 +106,7 @@ function History(props) {
 	)
 }
 
-export default History
+export default connect((state) => ({
+	repository: state.repository,
+	build: state.build,
+}))(History)

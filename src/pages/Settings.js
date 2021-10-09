@@ -4,7 +4,7 @@ import Form from '../components/Form'
 
 import './Settings.css'
 
-function Settings(props) {
+function Settings() {
 	return (
 		<>
 			<Header page="settings" title="School CI server" />
@@ -12,12 +12,11 @@ function Settings(props) {
 				<div className="container">
 					<h2 className="title Settings__title">Settings</h2>
 					<p className="Settings__text">Configure repository connection and&nbsp;synchronization settings.</p>
-					<Form update={props.update} settings={props.settings} />
+					<Form />
 				</div>
 			</main>
 			<Footer />
 		</>
 	)
 }
-
 export default Settings
