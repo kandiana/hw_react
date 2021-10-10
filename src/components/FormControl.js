@@ -10,7 +10,7 @@ function FormControl(props) {
 			<label>
 				<span className="Form-control__label">
 					{props.label}
-					{props.required ? <span className="Form-control_requred">*</span> : null}
+					{props.required ? <span className="Form-control_requred"> *</span> : null}
 				</span>
 				<Input
 					inline={props.oneline}

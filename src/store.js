@@ -1,5 +1,6 @@
 import { createStore } from 'redux'
 import { buildHistory } from './mock-data/build-history'
+import { localization } from './localization'
 
 export const isMobile = () => {
 	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
@@ -22,11 +23,16 @@ const initialState = {
 		history: [],
 		renderMore: false,
 	},
+	localization: {
+		rus: localization.rus,
+		eng: localization.eng,
+		language: localStorage.getItem('language') ? localStorage.getItem('language') : 'eng',
+	},
 }
 
 const settings = (state = initialState, action) => {
 	switch (action.type) {
-		case 'READ_FROM_LOCAL_STORAGE':
+		case 'READ_SETTINGS_FROM_LOCAL_STORAGE':
 			return { ...state, ...JSON.parse(localStorage.getItem('settings')) }
 
 		case 'SET_BUILD_CARDS_SET_LENGTH':
@@ -76,6 +82,16 @@ const settings = (state = initialState, action) => {
 
 		case 'SAVE_INPUT_SETTINGS':
 			return { ...state, ...action.input }
+
+		case 'CHANGE_LANGUAGE':
+			localStorage.setItem('language', action.language)
+			return {
+				...state,
+				localization: {
+					...state.localization,
+					language: action.language,
+				},
+			}
 
 		default:
 			return state

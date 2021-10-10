@@ -1,3 +1,5 @@
+import { connect } from 'react-redux'
+
 import { ReactComponent as CogIcon } from '../imgs/cog-icon.svg'
 import { ReactComponent as SettingsLogo } from '../imgs/settings-logo.svg'
 
@@ -7,7 +9,9 @@ import LinkButton from '../components/LinkButton'
 
 import './Start.css'
 
-function Start() {
+function Start(props) {
+	let language = props.localization.language
+
 	const headerNavButton = (
 		<LinkButton
 			key="settings"
@@ -16,7 +20,7 @@ function Start() {
 			children={[
 				<CogIcon key="icon" className="Button__icon" />,
 				<span key="text" className="Button__text">
-					Settings
+					{props.localization[language].header.settings}
 				</span>,
 			]}
 		/>
@@ -24,16 +28,22 @@ function Start() {
 
 	return (
 		<>
-			<Header children={headerNavButton} page="start" title="School CI server" />
+			<Header children={headerNavButton} page="start" title={props.localization[language].header.title} />
 			<main className="container Start">
-				<h2 className="title visually-hidden">Start page</h2>
+				<h2 className="title visually-hidden">{props.localization[language].start.title}</h2>
 				<SettingsLogo />
-				<p className="Start__text">Configure repository connection and&nbsp;synchronization settings</p>
-				<LinkButton href="/settings" buttonType="Button_yellow" children="Open settings" />
+				<p className="Start__text">{props.localization[language].start.text}</p>
+				<LinkButton
+					href="/settings"
+					buttonType="Button_yellow"
+					children={props.localization[language].start.openSettings}
+				/>
 			</main>
 			<Footer />
 		</>
 	)
 }
 
-export default Start
+export default connect((state) => ({
+	localization: state.localization,
+}))(Start)

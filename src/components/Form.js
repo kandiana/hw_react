@@ -11,6 +11,9 @@ import ModalWindow from '../components/ModalWindow'
 import './Form.css'
 
 function Form(props) {
+	let language = props.localization.language
+	let localization = props.localization[language].settings.form
+
 	const history = useHistory()
 
 	const [buttonDisabled, changeButtonState] = useState(false)
@@ -94,43 +97,48 @@ function Form(props) {
 					<FormControl
 						id="repository"
 						name="repository"
-						label="GitHub repository "
+						label={localization.repository.label}
 						required={true}
-						placeholder="user-name/repo-name"
+						placeholder={localization.repository.placeholder}
 						value={props.repository}
 						data-value="text"
 					/>
 					<FormControl
 						id="build-command"
 						name="buildCommand"
-						label="Build command "
+						label={localization.buildCommand.label}
 						required={true}
-						placeholder="build command"
+						placeholder={localization.buildCommand.placeholder}
 						value={props.buildCommand}
 						data-value="text"
 					/>
 					<FormControl
 						id="main-branch"
 						name="mainBranch"
-						label="Main branch"
-						placeholder="main branch name"
+						label={localization.mainBranch.label}
+						placeholder={localization.mainBranch.placeholder}
 						value={props.mainBranch}
 						data-value="text"
 					/>
 					<FormControl
 						id="synchronization-interval"
 						name="interval"
-						label="Synchronize every"
+						label={localization.interval.label}
 						value={props.interval}
 						oneline={true}
-						dimension="minutes"
+						dimension={localization.interval.dimension}
 						onInput={filterNonNumbers}
 						data-value="number"
 					/>
 				</div>
 				<div className="Form__buttons">
-					<Button buttonType="Button_yellow" children="Save" disabled={buttonDisabled} type="submit" />
-					<Button children="Cancel" disabled={buttonDisabled} onClick={goBack} />
+					<Button
+						buttonType="Button_yellow"
+						children={localization.buttons.save}
+						disabled={buttonDisabled}
+						type="submit"
+					/>
+					<Button children={localization.buttons.cancel} disabled={buttonDisabled} onClick={goBack} />
 				</div>
 			</form>
 
@@ -139,10 +147,8 @@ function Form(props) {
 					key="modal-window"
 					children={
 						<div className="Form__error-wrapper">
-							<p className="Form__error-message">
-								Repository cloning has not ended successfully. Please, try again
-							</p>
-							<Button children="Close" onClick={toggleModalWindow} />
+							<p className="Form__error-message">{localization.error.message}</p>
+							<Button children={localization.error.button} onClick={toggleModalWindow} />
 						</div>
 					}
 					hidden={!modalWindowShown}
@@ -158,4 +164,5 @@ export default connect((state) => ({
 	buildCommand: state.buildCommand,
 	mainBranch: state.mainBranch,
 	interval: state.interval,
+	localization: state.localization,
 }))(Form)

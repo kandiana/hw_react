@@ -1,3 +1,4 @@
+import { connect } from 'react-redux'
 import { format, formatDuration } from 'date-fns'
 
 import { ReactComponent as OkIcon } from '../imgs/build-icon_ok.svg'
@@ -11,6 +12,8 @@ import BuildTime from './BuildTime'
 import './BuildCard.css'
 
 function BuildCard(props) {
+	let language = props.localization.language
+
 	//setting icon shape and color depending on build status
 	const statusColor = `var(--color-${props.status})`
 	const iconElement = () => {
@@ -27,10 +30,16 @@ function BuildCard(props) {
 	}
 
 	// formatting date and duration to our needs
-	const formattedDate = format(props.content.date, 'dd MMM, HH:mm')
+	function setMonthsName(match) {
+		return props.localization[language].buildHistory.months.get(match)
+	}
+	const formattedDate = format(props.content.date, 'dd MMM, HH:mm').replace(
+		/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/,
+		setMonthsName
+	)
 	const formattedDuration = formatDuration(props.content.duration, { format: ['hours', 'minutes'] })
-		.replace('hour', 'h')
-		.replace('minutes', 'min')
+		.replace('hour', props.localization[language].buildHistory.h)
+		.replace('minutes', props.localization[language].buildHistory.min)
 
 	return (
 		<div className="Build-card">
@@ -51,4 +60,6 @@ function BuildCard(props) {
 	)
 }
 
-export default BuildCard
+export default connect((state) => ({
+	localization: state.localization,
+}))(BuildCard)

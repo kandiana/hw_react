@@ -17,6 +17,8 @@ import NewBuildForm from '../components/NewBuildForm'
 import './History.css'
 
 function History(props) {
+	let language = props.localization.language
+
 	const headerNavButtons = [
 		<Button
 			key="build"
@@ -25,7 +27,7 @@ function History(props) {
 			children={[
 				<PlayIcon key="icon" className="Button__icon" />,
 				<span key="text" className="Button__text">
-					Run build
+					{props.localization[language].header.runBuild}
 				</span>,
 			]}
 		/>,
@@ -65,7 +67,7 @@ function History(props) {
 		}
 
 		if (arrayOfCards.length === 0) {
-			return <p className="History__text">Build history is empty</p>
+			return <p className="History__text">{props.localization[language].buildHistory.text}</p>
 		}
 
 		return arrayOfCards
@@ -87,10 +89,14 @@ function History(props) {
 		<>
 			<Header children={headerNavButtons} page="history" title={props.repository} />
 			<main className="History">
-				<h2 className="title visually-hidden">Build history</h2>
+				<h2 className="title visually-hidden">{props.localization[language].buildHistory.title}</h2>
 				<div className="container">
 					{renderCards()}
-					<Button buttonType={showMoreButtonType} children="Show more" onClick={showMore} />
+					<Button
+						buttonType={showMoreButtonType}
+						children={props.localization[language].buildHistory.showMore}
+						onClick={showMore}
+					/>
 				</div>
 			</main>
 			<Footer />
@@ -109,4 +115,5 @@ function History(props) {
 export default connect((state) => ({
 	repository: state.repository,
 	build: state.build,
+	localization: state.localization,
 }))(History)
