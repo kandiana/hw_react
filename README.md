@@ -1,7 +1,6 @@
 ## Проект был создан с помощью CRA
 ### Запуск проекта:
-- git clone git@github.com:kandiana/hw_react.git
-- cd hw_react
+- git clone git@github.com:<название репозитория>
 - git checkout [branch-name]
 - npm install
 - npm start
