@@ -36,6 +36,7 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 
 	font-size: 13px;
+	line-height: 18px;
 
 	padding-right: 0px !important;
 	overflow-y: scroll;

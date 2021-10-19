@@ -20,9 +20,12 @@ function FormControl(props) {
 					required={props.required}
 					onInput={props.onInput}
 					data-value={props['data-value']}
+					inputMode={props.inputMode}
 				/>
 			</label>
-			{props.dimension ? <span className="Form-control__input-dimension">{props.dimension}</span> : null}
+			{props.dimension ? (
+				<span className="Form-control__input-dimension">{props.dimension}</span>
+			) : null}
 		</div>
 	)
 }

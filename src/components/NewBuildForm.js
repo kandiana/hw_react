@@ -15,7 +15,13 @@ function NewBuildForm(props) {
 			<h2 className="New-build-form__title">New build</h2>
 			<p className="New-build-form__text">Enter the commit hash which you want to build.</p>
 			<label>
-				<Input key="commit-hash" placeholder="Commit hash" name="commitHash" data-value="text" />
+				<Input
+					key="commit-hash"
+					placeholder="Commit hash"
+					name="commitHash"
+					data-value="text"
+					inputmode="text"
+				/>
 			</label>
 			<div className="New-build-form__form-buttons">
 				<Button buttonType="Button_yellow" children="Run build" onClick={closeModalWindow} />

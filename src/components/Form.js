@@ -102,6 +102,7 @@ function Form(props) {
 						placeholder={localization.repository.placeholder}
 						value={props.repository}
 						data-value="text"
+						inputMode="text"
 					/>
 					<FormControl
 						id="build-command"
@@ -111,6 +112,7 @@ function Form(props) {
 						placeholder={localization.buildCommand.placeholder}
 						value={props.buildCommand}
 						data-value="text"
+						inputMode="text"
 					/>
 					<FormControl
 						id="main-branch"
@@ -119,6 +121,7 @@ function Form(props) {
 						placeholder={localization.mainBranch.placeholder}
 						value={props.mainBranch}
 						data-value="text"
+						inputMode="text"
 					/>
 					<FormControl
 						id="synchronization-interval"
@@ -129,6 +132,7 @@ function Form(props) {
 						dimension={localization.interval.dimension}
 						onInput={filterNonNumbers}
 						data-value="number"
+						inputMode="numeric"
 					/>
 				</div>
 				<div className="Form__buttons">
@@ -138,7 +142,11 @@ function Form(props) {
 						disabled={buttonDisabled}
 						type="submit"
 					/>
-					<Button children={localization.buttons.cancel} disabled={buttonDisabled} onClick={goBack} />
+					<Button
+						children={localization.buttons.cancel}
+						disabled={buttonDisabled}
+						onClick={goBack}
+					/>
 				</div>
 			</form>
 

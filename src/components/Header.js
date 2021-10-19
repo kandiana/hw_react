@@ -1,9 +1,14 @@
 import { useEffect } from 'react'
+
+import useWindowSize from '../hooks/useWindowSize'
+
 import MainTitle from './MainTitle'
 
 import './Header.css'
 
 function Header(props) {
+	const windowHeight = useWindowSize()
+
 	useEffect(() => {
 		const header = document.querySelector('.Header')
 		const headerHeight = header.clientHeight
@@ -11,7 +16,7 @@ function Header(props) {
 		mockHeader.style.minHeight = `${headerHeight}px`
 		mockHeader.style.maxHeight = `${headerHeight}px`
 
-		if (window.innerHeight > headerHeight * 4) {
+		if (windowHeight > headerHeight * 5) {
 			header.classList.add('Header_sticky')
 			mockHeader.classList.remove('hidden')
 		} else {
@@ -36,7 +41,7 @@ function Header(props) {
 				}
 			})
 		}
-	})
+	}, [windowHeight])
 
 	return (
 		<>

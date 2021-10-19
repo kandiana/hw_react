@@ -46,7 +46,11 @@ function BuildCard(props) {
 			{iconElement()}
 			<div className="Build-card__content">
 				<div className="Build-card__commit">
-					<BuildTitle number={props.id} color={statusColor} commitMessage={props.content.commit.message} />
+					<BuildTitle
+						number={props.id}
+						color={statusColor}
+						commitMessage={props.content.commit.message}
+					/>
 					<CommitInfo
 						branch={props.content.commit.branch}
 						hash={props.content.commit.hash}

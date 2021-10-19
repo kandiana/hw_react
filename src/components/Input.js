@@ -28,6 +28,7 @@ function Input(props) {
 				name={props.name}
 				defaultValue={props.value ? props.value : ''}
 				data-value={props['data-value']}
+				inputMode={props.inputMode}
 				className={inputClasses}
 				required={props.required}
 				onInput={(event) => {
@@ -42,6 +43,7 @@ function Input(props) {
 			{props.inline ? null : (
 				<CrossIcon className={`Input__icon ${props.value ? '' : 'hidden'}`} onClick={clearInput} />
 			)}
+			{/* onBlur={window.resize} */}
 		</span>
 	)
 }

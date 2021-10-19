@@ -93,6 +93,7 @@ function History(props) {
 				<div className="container">
 					{renderCards()}
 					<Button
+						key="showMore"
 						buttonType={showMoreButtonType}
 						children={props.localization[language].buildHistory.showMore}
 						onClick={showMore}

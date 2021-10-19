@@ -28,7 +28,11 @@ function Start(props) {
 
 	return (
 		<>
-			<Header children={headerNavButton} page="start" title={props.localization[language].header.title} />
+			<Header
+				children={headerNavButton}
+				page="start"
+				title={props.localization[language].header.title}
+			/>
 			<main className="container Start">
 				<h2 className="title visually-hidden">{props.localization[language].start.title}</h2>
 				<SettingsLogo />
