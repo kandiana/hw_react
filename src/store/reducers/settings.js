@@ -1,3 +1,5 @@
+import { READ_SETTINGS_FROM_LOCAL_STORAGE, SAVE_INPUT_SETTINGS } from '../actions/actionTypes'
+
 // default synchronization interval in minutes
 const SYNCHRONIZATION_INTERVAL = 10
 
@@ -7,13 +9,13 @@ const initialState = {
 
 const settingsReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case 'READ_SETTINGS_FROM_LOCAL_STORAGE':
+		case READ_SETTINGS_FROM_LOCAL_STORAGE:
 			return {
 				...state,
 				...JSON.parse(localStorage.getItem('settings')),
 			}
 
-		case 'SAVE_INPUT_SETTINGS':
+		case SAVE_INPUT_SETTINGS:
 			return { ...state, ...action.input }
 
 		default:

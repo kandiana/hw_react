@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { addBuildHistoryItems, clearBuildHistory } from '../store/actions/build'
+
 import { ReactComponent as CogIcon } from '../imgs/cog-icon.svg'
 import { ReactComponent as PlayIcon } from '../imgs/play-icon.svg'
 
@@ -38,11 +40,11 @@ function History() {
 
 	// render first batch of build history cards (only once after initial component render)
 	useEffect(() => {
-		dispatch({ type: 'CLEAR_BUILD_HISTORY' })
-		dispatch({ type: 'ADD_BUILD_HISTORY_ITEMS' })
+		dispatch(clearBuildHistory())
+		dispatch(addBuildHistoryItems())
 
 		return () => {
-			dispatch({ type: 'CLEAR_BUILD_HISTORY' })
+			dispatch(clearBuildHistory())
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
@@ -68,7 +70,7 @@ function History() {
 
 	// renders next batch of build cards
 	function showMore() {
-		dispatch({ type: 'ADD_BUILD_HISTORY_ITEMS' })
+		dispatch(addBuildHistoryItems())
 	}
 
 	// modal window behaviour control

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import ReactDOM from 'react-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { saveInputSettings } from '../store/actions/settings'
 import FormControl from './FormControl'
 import Button from './Button'
 
@@ -67,7 +68,7 @@ function SettingsForm() {
 			}
 		}
 
-		dispatch({ type: 'SAVE_INPUT_SETTINGS', input: newSettings })
+		dispatch(saveInputSettings(newSettings))
 
 		const oldSettings = JSON.parse(localStorage.getItem('settings'))
 		const wholeSettings = { ...oldSettings, ...newSettings }

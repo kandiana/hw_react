@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { changeLanguage } from '../store/actions/localization'
+
 import './Link.css'
 import './Footer.css'
 
@@ -16,7 +18,7 @@ function Footer() {
 	function changeLocalization(event) {
 		event.preventDefault()
 		language = language === 'rus' ? 'eng' : 'rus'
-		dispatch({ type: 'CHANGE_LANGUAGE', language: language })
+		dispatch(changeLanguage(language))
 	}
 
 	return (

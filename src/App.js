@@ -2,6 +2,7 @@ import { Switch, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { store } from './store/store'
+import { readSettingsFromLocalStorage } from './store/actions/settings'
 
 import Start from './pages/Start'
 import History from './pages/History'
@@ -9,7 +10,7 @@ import Settings from './pages/Settings'
 
 import './App.css'
 
-store.dispatch({ type: 'READ_SETTINGS_FROM_LOCAL_STORAGE' })
+store.dispatch(readSettingsFromLocalStorage())
 
 function App() {
 	const { repository } = useSelector((state) => state.settings)

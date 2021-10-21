@@ -1,3 +1,9 @@
+import {
+	SET_BUILD_CARDS_SET_LENGTH,
+	CLEAR_BUILD_HISTORY,
+	ADD_BUILD_HISTORY_ITEMS,
+} from '../actions/actionTypes'
+
 import { buildHistory } from '../../mock-data/build-history'
 
 export const isMobile = () => {
@@ -21,13 +27,14 @@ const initialState = {
 
 const buildsReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case 'SET_BUILD_CARDS_SET_LENGTH':
+		// for now it's unused...
+		case SET_BUILD_CARDS_SET_LENGTH:
 			return {
 				...state,
 				cardsSetLength: action.setLength,
 			}
 
-		case 'CLEAR_BUILD_HISTORY':
+		case CLEAR_BUILD_HISTORY:
 			return {
 				...state,
 				history: [],
@@ -35,7 +42,7 @@ const buildsReducer = (state = initialState, action) => {
 			}
 
 		// adding from 'backend'
-		case 'ADD_BUILD_HISTORY_ITEMS':
+		case ADD_BUILD_HISTORY_ITEMS:
 			const newBuildCardsSet = []
 			const startIndex = state.history.length
 
