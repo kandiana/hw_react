@@ -1,0 +1,26 @@
+.Form-control {
+	margin-bottom: 18px;
+}
+
+.Form-control:last-child {
+	margin-bottom: 0;
+}
+
+.Form-control__label {
+	display: block;
+	margin-bottom: 6px;
+}
+
+.Form-control_requred {
+	color: red;
+}
+
+.Form-control__input-dimension {
+	padding-left: 8px;
+	color: #434445;
+}
+
+.Form-control_oneline .Form-control__label {
+	display: inline;
+	margin: 0 8px 0 0;
+}

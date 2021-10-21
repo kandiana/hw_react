@@ -1,0 +1,20 @@
+.Main-title {
+	margin: 0;
+	margin-right: 8px;
+
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 28px;
+	word-break: break-all;
+}
+
+.Main-title_gray {
+	color: #7f8285;
+}
+
+@media (min-width: 480px) {
+	.Main-title {
+		font-size: 24px;
+		margin-right: 20px;
+	}
+}

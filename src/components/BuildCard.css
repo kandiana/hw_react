@@ -1,0 +1,63 @@
+:root {
+	--color-ok: #00b341;
+	--color-error: #ff3333;
+	--color-timeout: #ff9a00;
+}
+
+.Build-card {
+	display: flex;
+	align-items: flex-start;
+
+	margin-bottom: 8px;
+	padding: 16px 12px;
+	box-sizing: border-box;
+
+	box-shadow: 0px 0px 1px rgba(67, 68, 69, 0.3), 0px 1px 1px rgba(67, 68, 69, 0.3);
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.Build-card:hover {
+	box-shadow: 0px 0px 1px rgba(67, 68, 69, 0.3), 0px 2px 8px rgba(67, 68, 69, 0.3);
+}
+
+.Build-card__status-icon {
+	display: block;
+	max-width: 14px;
+	min-width: 14px;
+	padding-top: 2px;
+	margin-right: 9px;
+}
+
+.Build-card__content {
+	display: block;
+	flex-grow: 1;
+}
+
+.Build-card__icon {
+	width: 16px;
+	margin-right: 5px;
+	fill: rgba(0, 0, 0, 0.4);
+}
+
+@media (min-width: 480px) {
+	.Build-card {
+		padding: 12px 24px;
+	}
+
+	.Build-card__commit {
+		margin-right: 0;
+		flex-grow: 1;
+	}
+
+	.Build-card__status-icon {
+		max-width: 22px;
+		min-width: 22px;
+	}
+}
+
+@media (min-width: 768px) {
+	.Build-card__content {
+		display: flex;
+	}
+}

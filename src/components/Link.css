@@ -1,0 +1,13 @@
+.Link {
+	margin-right: 12px;
+	text-decoration: none;
+	color: #7f8285;
+}
+
+.Link:last-child {
+	margin-right: 0;
+}
+
+.Link:hover {
+	color: red;
+}

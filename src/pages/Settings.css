@@ -1,0 +1,17 @@
+.Settings__title {
+	margin: 0 0 8px;
+	font-size: 15px;
+	font-weight: 700;
+}
+
+.Settings__text {
+	margin: 0 0 14px;
+	line-height: 20px;
+	color: #7f8285;
+}
+
+@media (min-width: 480px) {
+	.Settings__text {
+		margin-bottom: 22px;
+	}
+}

@@ -1,0 +1,30 @@
+.Build-title {
+	font-size: 15px;
+	margin-bottom: 8px;
+}
+
+.Build-title__number {
+	display: block;
+	align-self: flex-start;
+	margin-bottom: 8px;
+
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.Build-title__message {
+	line-height: 1.25;
+	align-self: flex-end;
+}
+
+@media (min-width: 480px) {
+	.Build-title {
+		display: flex;
+	}
+
+	.Build-title__number {
+		font-size: 18px;
+		margin-right: 5px;
+		margin-bottom: 0;
+	}
+}

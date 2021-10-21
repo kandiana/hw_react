@@ -1,0 +1,27 @@
+.Start {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	padding: 16px 0;
+	flex-grow: 1;
+}
+
+.Start .Header {
+	padding: 15px 0;
+}
+
+.Start__text {
+	max-width: 300px;
+	margin: 32px 0 24px;
+
+	line-height: 1.25;
+	text-align: center;
+}
+
+@media (min-width: 480px) {
+	.Start .Header {
+		padding: 10px 0;
+	}
+}

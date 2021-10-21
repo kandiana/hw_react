@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+
+import { store } from './store/store'
+import { readSettingsFromLocalStorage } from './store/actions/settings'
+
+import Start from './pages/Start'
+import History from './pages/History'
+import Settings from './pages/Settings'
+
+import './App.css'
+
+store.dispatch(readSettingsFromLocalStorage())
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const { repository } = useSelector((state) => state.settings)
+
+	return (
+		<div className="App">
+			<Switch>
+				<Route path="/settings">
+					<Settings />
+				</Route>
+				<Route path="/">{repository ? <History /> : <Start />}</Route>
+			</Switch>
+		</div>
+	)
 }
 
-export default App;
+export default App
