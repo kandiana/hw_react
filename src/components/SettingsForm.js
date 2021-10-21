@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
 import ReactDOM from 'react-dom'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import FormControl from './FormControl'
 import Button from './Button'
@@ -10,9 +10,13 @@ import ModalWindow from './ModalWindow'
 
 import './SettingsForm.css'
 
-function SettingsForm({ repository, buildCommand, mainBranch, interval, dispatch, localization }) {
-	let language = localization.language
-	let settingsFormLocalization = localization[language].settings.form
+function SettingsForm() {
+	const dispatch = useDispatch()
+	const localization = useSelector((state) => state.localization)
+	const language = localization.language
+	const settingsFormLocalization = localization[language].settings.form
+
+	const { repository, buildCommand, mainBranch, interval } = useSelector((state) => state.settings)
 
 	const history = useHistory()
 
@@ -162,10 +166,4 @@ function SettingsForm({ repository, buildCommand, mainBranch, interval, dispatch
 	)
 }
 
-export default connect((state) => ({
-	repository: state.repository,
-	buildCommand: state.buildCommand,
-	mainBranch: state.mainBranch,
-	interval: state.interval,
-	localization: state.localization,
-}))(SettingsForm)
+export default SettingsForm

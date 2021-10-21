@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './Link.css'
 import './Footer.css'
 
-function Footer({ dispatch, localization }) {
+function Footer() {
+	const dispatch = useDispatch()
+	const localization = useSelector((state) => state.localization)
 	let language = localization.language
+
+	function blockLink(event) {
+		event.preventDefault()
+	}
 
 	function changeLocalization(event) {
 		event.preventDefault()
@@ -17,10 +23,10 @@ function Footer({ dispatch, localization }) {
 		<footer className="Footer">
 			<div className="container Footer__wrapper">
 				<div className="Footer__nav">
-					<Link to="/" className="Link">
+					<Link to="/" className="Link" onClick={blockLink}>
 						{localization[language].footer.support}
 					</Link>
-					<Link to="/" className="Link">
+					<Link to="/" className="Link" onClick={blockLink}>
 						{localization[language].footer.learning}
 					</Link>
 					<Link to="/" className="Link" onClick={changeLocalization}>
@@ -33,6 +39,4 @@ function Footer({ dispatch, localization }) {
 	)
 }
 
-export default connect((state) => ({
-	localization: state.localization,
-}))(Footer)
+export default Footer

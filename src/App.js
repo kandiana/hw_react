@@ -1,8 +1,7 @@
 import { Switch, Route } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-import useWindowSize from './hooks/useWindowSize'
-import { store, isMobile } from './store'
+import { store } from './store/store'
 
 import Start from './pages/Start'
 import History from './pages/History'
@@ -10,23 +9,21 @@ import Settings from './pages/Settings'
 
 import './App.css'
 
-//store.dispatch({ type: '' })
 store.dispatch({ type: 'READ_SETTINGS_FROM_LOCAL_STORAGE' })
 
-function App(props) {
+function App() {
+	const { repository } = useSelector((state) => state.settings)
+
 	return (
 		<div className="App">
 			<Switch>
 				<Route path="/settings">
 					<Settings />
 				</Route>
-				<Route path="/">{props.repository ? <History /> : <Start />}</Route>
+				<Route path="/">{repository ? <History /> : <Start />}</Route>
 			</Switch>
 		</div>
 	)
 }
 
-export default connect((state) => ({
-	repository: state.repository,
-	buildCardsSetLength: state.buildCardsSetLength,
-}))(App)
+export default App

@@ -1,4 +1,4 @@
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -6,8 +6,9 @@ import SettingsForm from '../components/SettingsForm'
 
 import './Settings.css'
 
-function Settings({ localization }) {
-	let language = localization.language
+function Settings() {
+	const localization = useSelector((state) => state.localization)
+	const language = localization.language
 
 	return (
 		<>
@@ -23,6 +24,4 @@ function Settings({ localization }) {
 		</>
 	)
 }
-export default connect((state) => ({
-	localization: state.localization,
-}))(Settings)
+export default Settings

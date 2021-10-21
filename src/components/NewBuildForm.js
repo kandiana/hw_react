@@ -1,13 +1,14 @@
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import Input from './Input'
 import Button from './Button'
 
 import './NewBuildForm.css'
 
-function NewBuildForm({ modalWindowControl, localization }) {
-	let language = localization.language
-	let buildLocalization = localization[language].buildHistory
+function NewBuildForm({ modalWindowControl }) {
+	const localization = useSelector((state) => state.localization)
+	const language = localization.language
+	const buildLocalization = localization[language].buildHistory
 
 	function closeModalWindow(event) {
 		event.preventDefault()
@@ -38,6 +39,4 @@ function NewBuildForm({ modalWindowControl, localization }) {
 	)
 }
 
-export default connect((state) => ({
-	localization: state.localization,
-}))(NewBuildForm)
+export default NewBuildForm

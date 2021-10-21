@@ -1,4 +1,4 @@
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { format, formatDuration } from 'date-fns'
 
 import { ReactComponent as OkIcon } from '../imgs/build-icon_ok.svg'
@@ -11,8 +11,9 @@ import BuildTime from './BuildTime'
 
 import './BuildCard.css'
 
-function BuildCard({ id, status, content, localization }) {
-	let language = localization.language
+function BuildCard({ id, status, content }) {
+	const localization = useSelector((state) => state.localization)
+	const language = localization.language
 
 	//setting icon shape and color depending on build status
 	const statusColor = `var(--color-${status})`
@@ -60,6 +61,4 @@ function BuildCard({ id, status, content, localization }) {
 	)
 }
 
-export default connect((state) => ({
-	localization: state.localization,
-}))(BuildCard)
+export default BuildCard

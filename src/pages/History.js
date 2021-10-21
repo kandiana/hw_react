@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { ReactComponent as CogIcon } from '../imgs/cog-icon.svg'
 import { ReactComponent as PlayIcon } from '../imgs/play-icon.svg'
@@ -16,8 +16,13 @@ import NewBuildForm from '../components/NewBuildForm'
 
 import './History.css'
 
-function History({ repository, build, dispatch, localization }) {
-	let language = localization.language
+function History() {
+	const dispatch = useDispatch()
+	const localization = useSelector((state) => state.localization)
+	const language = localization.language
+
+	const build = useSelector((state) => state.build)
+	const { repository } = useSelector((state) => state.settings)
 
 	const headerNavButtons = [
 		<Button key="build" buttonType="Button_small" onClick={openModalWindow}>
@@ -101,8 +106,4 @@ function History({ repository, build, dispatch, localization }) {
 	)
 }
 
-export default connect((state) => ({
-	repository: state.repository,
-	build: state.build,
-	localization: state.localization,
-}))(History)
+export default History

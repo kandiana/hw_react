@@ -1,4 +1,4 @@
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { ReactComponent as CogIcon } from '../imgs/cog-icon.svg'
 import { ReactComponent as SettingsLogo } from '../imgs/settings-logo.svg'
@@ -9,7 +9,8 @@ import LinkButton from '../components/LinkButton'
 
 import './Start.css'
 
-function Start({ localization }) {
+function Start() {
+	const localization = useSelector((state) => state.localization)
 	let language = localization.language
 
 	const headerNavButton = (
@@ -39,6 +40,4 @@ function Start({ localization }) {
 	)
 }
 
-export default connect((state) => ({
-	localization: state.localization,
-}))(Start)
+export default Start
