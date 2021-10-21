@@ -18,12 +18,12 @@ function NewBuildForm({ modalWindowControl }) {
 	// label catches click of focuses on input after field clearing
 	return (
 		<form action="#" className="New-build-form" onSubmit={(event) => event.preventDefault}>
-			<h2 className="New-build-form__title">New build</h2>
-			<p className="New-build-form__text">Enter the commit hash which you want to build.</p>
+			<h2 className="New-build-form__title">{buildLocalization.modal.title}</h2>
+			<p className="New-build-form__text">{buildLocalization.modal.text}</p>
 			<label>
 				<Input
 					key="commit-hash"
-					placeholder="Commit hash"
+					placeholder={buildLocalization.modal.placeholder}
 					name="commitHash"
 					data-value="text"
 					inputmode="text"

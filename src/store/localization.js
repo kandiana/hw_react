@@ -64,6 +64,9 @@ export const localization = {
 			min: 'мин',
 			showMore: 'Больше',
 			modal: {
+				title: 'Новая сборка',
+				text: 'Введите хэш коммита, который хотите собрать.',
+				placeholder: 'Хэш коммита',
 				runBuild: 'Собрать',
 				cancel: 'Отмена',
 			},
@@ -142,6 +145,9 @@ export const localization = {
 			min: 'min',
 			showMore: 'Show more',
 			modal: {
+				title: 'New Build',
+				text: 'Enter the commit hash which you want to build.',
+				placeholder: 'Commit hash',
 				runBuild: 'Run build',
 				cancel: 'Cancel',
 			},
