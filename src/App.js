@@ -7,6 +7,7 @@ import { readSettingsFromLocalStorage } from './store/actions/settings'
 import Start from './pages/Start'
 import History from './pages/History'
 import Settings from './pages/Settings'
+import Footer from './components/Footer'
 
 import './App.css'
 
@@ -23,6 +24,7 @@ function App() {
 				</Route>
 				<Route path="/">{repository ? <History /> : <Start />}</Route>
 			</Switch>
+			<Footer />
 		</div>
 	)
 }

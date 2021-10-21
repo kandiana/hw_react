@@ -8,7 +8,6 @@ import { ReactComponent as CogIcon } from '../imgs/cog-icon.svg'
 import { ReactComponent as PlayIcon } from '../imgs/play-icon.svg'
 
 import Header from '../components/Header'
-import Footer from '../components/Footer'
 import Button from '../components/Button'
 import LinkButton from '../components/LinkButton'
 import BuildCard from '../components/BuildCard'
@@ -95,7 +94,6 @@ function History() {
 					/>
 				</div>
 			</main>
-			<Footer />
 			{ReactDOM.createPortal(
 				<ModalWindow
 					key="modal-window"

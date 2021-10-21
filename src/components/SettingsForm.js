@@ -55,9 +55,7 @@ function SettingsForm() {
 		const newSettings = {}
 		const formElements = event.target.elements
 
-		for (let index in formElements) {
-			const element = formElements[index]
-
+		formElements.forEach((element) => {
 			// saving only values from unempty inputs
 			if (element.tagName === 'INPUT' && element.name && element.value) {
 				if (element.dataset.value === 'number') {
@@ -66,7 +64,7 @@ function SettingsForm() {
 					newSettings[element.name] = element.value
 				}
 			}
-		}
+		})
 
 		dispatch(saveInputSettings(newSettings))
 

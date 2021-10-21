@@ -4,7 +4,6 @@ import { ReactComponent as CogIcon } from '../imgs/cog-icon.svg'
 import { ReactComponent as SettingsLogo } from '../imgs/settings-logo.svg'
 
 import Header from '../components/Header'
-import Footer from '../components/Footer'
 import LinkButton from '../components/LinkButton'
 
 import './Start.css'
@@ -35,7 +34,6 @@ function Start() {
 					{localization[language].start.openSettings}
 				</LinkButton>
 			</main>
-			<Footer />
 		</>
 	)
 }

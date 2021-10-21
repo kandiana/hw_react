@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { format, formatDuration } from 'date-fns'
+import { ru, enUS } from 'date-fns/locale'
 
 import { ReactComponent as OkIcon } from '../imgs/build-icon_ok.svg'
 import { ReactComponent as ErrorIcon } from '../imgs/build-icon_error.svg'
@@ -31,13 +32,10 @@ function BuildCard({ id, status, content }) {
 	}
 
 	// formatting date and duration to our needs
-	function setMonthsName(match) {
-		return localization[language].buildHistory.months.get(match)
-	}
-	const formattedDate = format(content.date, 'dd MMM, HH:mm').replace(
-		/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/,
-		setMonthsName
-	)
+	const formattedDate = format(content.date, 'dd MMM, HH:mm', {
+		locale: language === 'rus' ? ru : enUS,
+	})
+
 	const formattedDuration = formatDuration(content.duration, { format: ['hours', 'minutes'] })
 		.replace('hour', localization[language].buildHistory.h)
 		.replace('minutes', localization[language].buildHistory.min)
