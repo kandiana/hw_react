@@ -3,16 +3,16 @@ import { ReactComponent as ClockIcon } from '../imgs/clock-icon.svg'
 
 import './BuildTime.css'
 
-function BuildTime(props) {
+function BuildTime({ date, duration, iconClass }) {
 	return (
 		<div className="Build-time">
 			<div className="Build-time__content">
-				<CalendarIcon className={props.iconClass} />
-				<span>{props.date}</span>
+				<CalendarIcon className={iconClass} />
+				<span>{date}</span>
 			</div>
 			<div className="Build-time__content">
-				<ClockIcon className={props.iconClass} />
-				<span>{props.duration}</span>
+				<ClockIcon className={iconClass} />
+				<span>{duration}</span>
 			</div>
 		</div>
 	)

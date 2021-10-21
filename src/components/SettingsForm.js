@@ -6,13 +6,13 @@ import { connect } from 'react-redux'
 import FormControl from './FormControl'
 import Button from './Button'
 
-import ModalWindow from '../components/ModalWindow'
+import ModalWindow from './ModalWindow'
 
-import './Form.css'
+import './SettingsForm.css'
 
-function Form(props) {
-	let language = props.localization.language
-	let localization = props.localization[language].settings.form
+function SettingsForm({ repository, buildCommand, mainBranch, interval, dispatch, localization }) {
+	let language = localization.language
+	let settingsFormLocalization = localization[language].settings.form
 
 	const history = useHistory()
 
@@ -63,7 +63,7 @@ function Form(props) {
 			}
 		}
 
-		props.dispatch({ type: 'SAVE_INPUT_SETTINGS', input: newSettings })
+		dispatch({ type: 'SAVE_INPUT_SETTINGS', input: newSettings })
 
 		const oldSettings = JSON.parse(localStorage.getItem('settings'))
 		const wholeSettings = { ...oldSettings, ...newSettings }
@@ -97,56 +97,51 @@ function Form(props) {
 					<FormControl
 						id="repository"
 						name="repository"
-						label={localization.repository.label}
+						label={settingsFormLocalization.repository.label}
 						required={true}
-						placeholder={localization.repository.placeholder}
-						value={props.repository}
-						data-value="text"
+						placeholder={settingsFormLocalization.repository.placeholder}
+						value={repository}
+						dataValue="text"
 						inputMode="text"
 					/>
 					<FormControl
 						id="build-command"
 						name="buildCommand"
-						label={localization.buildCommand.label}
+						label={settingsFormLocalization.buildCommand.label}
 						required={true}
-						placeholder={localization.buildCommand.placeholder}
-						value={props.buildCommand}
-						data-value="text"
+						placeholder={settingsFormLocalization.buildCommand.placeholder}
+						value={buildCommand}
+						dataValue="text"
 						inputMode="text"
 					/>
 					<FormControl
 						id="main-branch"
 						name="mainBranch"
-						label={localization.mainBranch.label}
-						placeholder={localization.mainBranch.placeholder}
-						value={props.mainBranch}
-						data-value="text"
+						label={settingsFormLocalization.mainBranch.label}
+						placeholder={settingsFormLocalization.mainBranch.placeholder}
+						value={mainBranch}
+						dataValue="text"
 						inputMode="text"
 					/>
 					<FormControl
 						id="synchronization-interval"
 						name="interval"
-						label={localization.interval.label}
-						value={props.interval}
+						label={settingsFormLocalization.interval.label}
+						value={interval}
 						oneline={true}
-						dimension={localization.interval.dimension}
+						dimension={settingsFormLocalization.interval.dimension}
 						onInput={filterNonNumbers}
-						data-value="number"
+						dataValue="number"
 						inputMode="numeric"
 					/>
 				</div>
 				<div className="Form__buttons">
-					<Button
-						buttonType="Button_yellow"
-						children={localization.buttons.save}
-						disabled={buttonDisabled}
-						type="submit"
-					/>
-					<Button
-						children={localization.buttons.cancel}
-						disabled={buttonDisabled}
-						onClick={goBack}
-					/>
+					<Button buttonType="Button_yellow" disabled={buttonDisabled} type="submit">
+						{settingsFormLocalization.buttons.save}
+					</Button>
+					<Button disabled={buttonDisabled} onClick={goBack}>
+						{settingsFormLocalization.buttons.cancel}
+					</Button>
 				</div>
 			</form>
 
@@ -155,8 +150,8 @@ function Form(props) {
 					key="modal-window"
 					children={
 						<div className="Form__error-wrapper">
-							<p className="Form__error-message">{localization.error.message}</p>
-							<Button children={localization.error.button} onClick={toggleModalWindow} />
+							<p className="Form__error-message">{settingsFormLocalization.error.message}</p>
+							<Button onClick={toggleModalWindow}>{settingsFormLocalization.error.button}</Button>
 						</div>
 					}
 					hidden={!modalWindowShown}
@@ -173,4 +168,4 @@ export default connect((state) => ({
 	mainBranch: state.mainBranch,
 	interval: state.interval,
 	localization: state.localization,
-}))(Form)
+}))(SettingsForm)

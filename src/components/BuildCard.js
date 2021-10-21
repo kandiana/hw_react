@@ -11,13 +11,13 @@ import BuildTime from './BuildTime'
 
 import './BuildCard.css'
 
-function BuildCard(props) {
-	let language = props.localization.language
+function BuildCard({ id, status, content, localization }) {
+	let language = localization.language
 
 	//setting icon shape and color depending on build status
-	const statusColor = `var(--color-${props.status})`
+	const statusColor = `var(--color-${status})`
 	const iconElement = () => {
-		switch (props.status) {
+		switch (status) {
 			case 'ok':
 				return <OkIcon className="Build-card__status-icon" style={{ fill: statusColor }} />
 			case 'error':
@@ -31,30 +31,26 @@ function BuildCard(props) {
 
 	// formatting date and duration to our needs
 	function setMonthsName(match) {
-		return props.localization[language].buildHistory.months.get(match)
+		return localization[language].buildHistory.months.get(match)
 	}
-	const formattedDate = format(props.content.date, 'dd MMM, HH:mm').replace(
+	const formattedDate = format(content.date, 'dd MMM, HH:mm').replace(
 		/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/,
 		setMonthsName
 	)
-	const formattedDuration = formatDuration(props.content.duration, { format: ['hours', 'minutes'] })
-		.replace('hour', props.localization[language].buildHistory.h)
-		.replace('minutes', props.localization[language].buildHistory.min)
+	const formattedDuration = formatDuration(content.duration, { format: ['hours', 'minutes'] })
+		.replace('hour', localization[language].buildHistory.h)
+		.replace('minutes', localization[language].buildHistory.min)
 
 	return (
 		<div className="Build-card">
 			{iconElement()}
 			<div className="Build-card__content">
 				<div className="Build-card__commit">
-					<BuildTitle
-						number={props.id}
-						color={statusColor}
-						commitMessage={props.content.commit.message}
-					/>
+					<BuildTitle number={id} color={statusColor} commitMessage={content.commit.message} />
 					<CommitInfo
-						branch={props.content.commit.branch}
-						hash={props.content.commit.hash}
-						author={props.content.commit.author}
+						branch={content.commit.branch}
+						hash={content.commit.hash}
+						author={content.commit.author}
 						iconClass="Build-card__icon"
 					/>
 				</div>

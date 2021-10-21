@@ -1,9 +1,9 @@
 import './MainTitle.css'
 
-function MainTitle(props) {
-	const classes = props.page === 'history' ? 'Main-title' : 'Main-title Main-title_gray'
+function MainTitle({ page, title }) {
+	const classes = page === 'history' ? 'Main-title' : 'Main-title Main-title_gray'
 
-	return <h1 className={classes}>{props.title}</h1>
+	return <h1 className={classes}>{title}</h1>
 }
 
 export default MainTitle

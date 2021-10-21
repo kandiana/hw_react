@@ -6,7 +6,8 @@ import MainTitle from './MainTitle'
 
 import './Header.css'
 
-function Header(props) {
+function Header({ title, page, children }) {
+	// need to show/remove sticky header depending on window size
 	const windowHeight = useWindowSize()
 
 	useEffect(() => {
@@ -47,8 +48,8 @@ function Header(props) {
 		<>
 			<header className="Header">
 				<div className="container Header__wrapper">
-					<MainTitle title={props.title} page={props.page} />
-					<nav>{props.children}</nav>
+					<MainTitle title={title} page={page} />
+					<nav>{children}</nav>
 				</div>
 			</header>
 			<div className="Mock-header"></div>

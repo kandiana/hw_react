@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './ModalWindow.css'
 
-function ModalWindow(props) {
+function ModalWindow({ hidden, children }) {
 	const [scrollPosition, updateScrollPosition] = useState(0)
 
 	function showModal() {
@@ -22,17 +22,17 @@ function ModalWindow(props) {
 	}
 
 	useEffect(() => {
-		if (props.hidden) {
+		if (hidden) {
 			hideModal()
 		} else {
 			showModal()
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [props.hidden])
+	}, [hidden])
 
 	return (
-		<div className={`Modal-window-box ${props.hidden ? 'hidden' : ''}`}>
-			<div className="Modal-window">{props.children}</div>
+		<div className={`Modal-window-box ${hidden ? 'hidden' : ''}`}>
+			<div className="Modal-window">{children}</div>
 		</div>
 	)
 }

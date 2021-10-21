@@ -2,30 +2,39 @@ import Input from './Input'
 
 import './FormControl.css'
 
-function FormControl(props) {
-	const blockClasses = `Form-control ${props.oneline ? 'Form-control_oneline' : ''}`
+function FormControl({
+	label,
+	name,
+	value,
+	dataValue,
+	placeholder,
+	inputMode,
+	onInput,
+	oneline,
+	required,
+	dimension,
+}) {
+	const blockClasses = `Form-control ${oneline ? 'Form-control_oneline' : ''}`
 
 	return (
 		<div className={blockClasses}>
 			<label>
 				<span className="Form-control__label">
-					{props.label}
-					{props.required ? <span className="Form-control_requred"> *</span> : null}
+					{label}
+					{required ? <span className="Form-control_requred"> *</span> : null}
 				</span>
 				<Input
-					inline={props.oneline}
-					placeholder={props.placeholder}
-					name={props.name}
-					value={props.value}
-					required={props.required}
-					onInput={props.onInput}
-					data-value={props['data-value']}
-					inputMode={props.inputMode}
+					inline={oneline}
+					placeholder={placeholder}
+					name={name}
+					value={value}
+					required={required}
+					onInput={onInput}
+					dataValue={dataValue}
+					inputMode={inputMode}
 				/>
 			</label>
-			{props.dimension ? (
-				<span className="Form-control__input-dimension">{props.dimension}</span>
-			) : null}
+			{dimension ? <span className="Form-control__input-dimension">{dimension}</span> : null}
 		</div>
 	)
 }

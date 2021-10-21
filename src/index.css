@@ -25,7 +25,14 @@
 		url(//yastatic.net/s3/home/fonts/ys/1/text-bold.woff) format('woff');
 }
 
+html {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+}
+
 body {
+	display: contents;
 	margin: 0;
 
 	font-family: 'YS Text', 'Helvetica Neue', Arial, sans-serif;
@@ -39,4 +46,8 @@ body {
 	line-height: 18px;
 
 	overflow-y: scroll;
+}
+
+#root {
+	display: contents;
 }

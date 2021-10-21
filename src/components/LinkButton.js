@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 
-function LinkButton(props) {
-	const classNames = `Button ${props.buttonType ? props.buttonType : ''}`
+function LinkButton({ href, buttonType, onClick, children }) {
+	const classNames = `Button ${buttonType ? buttonType : ''}`
 
 	return (
-		<Link to={props.href} className={classNames} onClick={props.onClick}>
-			{props.children}
+		<Link to={href} className={classNames} onClick={onClick}>
+			{children}
 		</Link>
 	)
 }

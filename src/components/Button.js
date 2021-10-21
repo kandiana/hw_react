@@ -1,16 +1,11 @@
 import './Button.css'
 
-function Button(props) {
-	const classNames = `Button ${props.buttonType ? props.buttonType : ''}`
+function Button({ type, buttonType, onClick, disabled, children }) {
+	const classNames = `Button ${buttonType ? buttonType : ''}`
 
 	return (
-		<button
-			type={props.type}
-			className={classNames}
-			onClick={props.onClick}
-			disabled={props.disabled}
-		>
-			{props.children}
+		<button type={type} className={classNames} onClick={onClick} disabled={disabled}>
+			{children}
 		</button>
 	)
 }

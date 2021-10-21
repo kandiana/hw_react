@@ -16,58 +16,46 @@ import NewBuildForm from '../components/NewBuildForm'
 
 import './History.css'
 
-function History(props) {
-	let language = props.localization.language
+function History({ repository, build, dispatch, localization }) {
+	let language = localization.language
 
 	const headerNavButtons = [
-		<Button
-			key="build"
-			buttonType="Button_small"
-			onClick={openModalWindow}
-			children={[
-				<PlayIcon key="icon" className="Button__icon" />,
-				<span key="text" className="Button__text">
-					{props.localization[language].header.runBuild}
-				</span>,
-			]}
-		/>,
-		<LinkButton
-			key="settings"
-			href="/settings"
-			buttonType="Button_small"
-			children={<CogIcon className="Button__icon" />}
-		/>,
+		<Button key="build" buttonType="Button_small" onClick={openModalWindow}>
+			<PlayIcon key="icon" className="Button__icon" />
+			<span key="text" className="Button__text">
+				{localization[language].header.runBuild}
+			</span>
+		</Button>,
+		<LinkButton key="settings" href="/settings" buttonType="Button_small">
+			<CogIcon className="Button__icon" />
+		</LinkButton>,
 	]
 
 	// render first batch of build history cards (only once after initial component render)
 	useEffect(() => {
-		props.dispatch({ type: 'CLEAR_BUILD_HISTORY' })
-		props.dispatch({ type: 'ADD_BUILD_HISTORY_ITEMS' })
+		dispatch({ type: 'CLEAR_BUILD_HISTORY' })
+		dispatch({ type: 'ADD_BUILD_HISTORY_ITEMS' })
 
 		return () => {
-			props.dispatch({ type: 'CLEAR_BUILD_HISTORY' })
+			dispatch({ type: 'CLEAR_BUILD_HISTORY' })
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	// if not all build cards are shown, render 'show more' button
-	const showMoreButtonType = `Button_changing-size ${props.build.renderMore ? '' : 'hidden'}`
+	const showMoreButtonType = `Button_changing-size ${build.renderMore ? '' : 'hidden'}`
 
 	function renderCards() {
 		const arrayOfCards = []
-		for (let i = 0; i < props.build.history.length; i++) {
+
+		build.history.forEach((commit) =>
 			arrayOfCards.push(
-				<BuildCard
-					key={props.build.history[i].id}
-					id={props.build.history[i].id}
-					status={props.build.history[i].status}
-					content={props.build.history[i].content}
-				/>
+				<BuildCard key={commit.id} id={commit.id} status={commit.status} content={commit.content} />
 			)
-		}
+		)
 
 		if (arrayOfCards.length === 0) {
-			return <p className="History__text">{props.localization[language].buildHistory.text}</p>
+			return <p className="History__text">{localization[language].buildHistory.text}</p>
 		}
 
 		return arrayOfCards
@@ -75,7 +63,7 @@ function History(props) {
 
 	// renders next batch of build cards
 	function showMore() {
-		props.dispatch({ type: 'ADD_BUILD_HISTORY_ITEMS' })
+		dispatch({ type: 'ADD_BUILD_HISTORY_ITEMS' })
 	}
 
 	// modal window behaviour control
@@ -87,15 +75,15 @@ function History(props) {
 
 	return (
 		<>
-			<Header children={headerNavButtons} page="history" title={props.repository} />
+			<Header children={headerNavButtons} page="history" title={repository} />
 			<main className="History">
-				<h2 className="title visually-hidden">{props.localization[language].buildHistory.title}</h2>
+				<h2 className="title visually-hidden">{localization[language].buildHistory.title}</h2>
 				<div className="container">
 					{renderCards()}
 					<Button
 						key="showMore"
 						buttonType={showMoreButtonType}
-						children={props.localization[language].buildHistory.showMore}
+						children={localization[language].buildHistory.showMore}
 						onClick={showMore}
 					/>
 				</div>

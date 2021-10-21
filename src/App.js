@@ -2,7 +2,7 @@ import { Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import useWindowSize from './hooks/useWindowSize'
-import { isMobile } from './store'
+import { store, isMobile } from './store'
 
 import Start from './pages/Start'
 import History from './pages/History'
@@ -10,13 +10,12 @@ import Settings from './pages/Settings'
 
 import './App.css'
 
-function App(props) {
-	// to avoid scrolling on mobile devices due to address line
-	const windowHeight = useWindowSize()
-	const appHeight = isMobile() ? `${windowHeight}px` : '100vh'
+//store.dispatch({ type: '' })
+store.dispatch({ type: 'READ_SETTINGS_FROM_LOCAL_STORAGE' })
 
+function App(props) {
 	return (
-		<div className="App" style={{ height: appHeight }}>
+		<div className="App">
 			<Switch>
 				<Route path="/settings">
 					<Settings />

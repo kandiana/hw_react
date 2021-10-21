@@ -8,9 +8,6 @@ import { store } from './store'
 import './index.css'
 import App from './App'
 
-//store.dispatch({ type: '' })
-store.dispatch({ type: 'READ_SETTINGS_FROM_LOCAL_STORAGE' })
-
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>

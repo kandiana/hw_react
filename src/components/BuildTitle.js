@@ -1,12 +1,12 @@
 import './BuildTitle.css'
 
-function BuildTitle(props) {
+function BuildTitle({ color, number, commitMessage }) {
 	return (
 		<div className="Build-title">
-			<span className="Build-title__number" style={{ color: props.color }}>
-				{props.number}
+			<span className="Build-title__number" style={{ color: color }}>
+				{number}
 			</span>
-			<span className="Build-title__message">{props.commitMessage}</span>
+			<span className="Build-title__message">{commitMessage}</span>
 		</div>
 	)
 }

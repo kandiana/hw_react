@@ -2,8 +2,8 @@ import { ReactComponent as CrossIcon } from '../imgs/cross-icon.svg'
 
 import './Input.css'
 
-function Input(props) {
-	const inputClasses = `Input ${props.inline ? 'Input_inline' : ''}`
+function Input({ id, name, value, dataValue, placeholder, inputMode, required, onInput, inline }) {
+	const inputClasses = `Input ${inline ? 'Input_inline' : ''}`
 
 	function clearInput(event) {
 		const target = event.target.closest('svg')
@@ -22,28 +22,27 @@ function Input(props) {
 	return (
 		<span className="Input__wrapper">
 			<input
-				id={props.id}
+				id={id}
 				type="text"
-				placeholder={props.placeholder}
-				name={props.name}
-				defaultValue={props.value ? props.value : ''}
-				data-value={props['data-value']}
-				inputMode={props.inputMode}
+				placeholder={placeholder}
+				name={name}
+				defaultValue={value ? value : ''}
+				data-value={dataValue}
+				inputMode={inputMode}
 				className={inputClasses}
-				required={props.required}
+				required={required}
 				onInput={(event) => {
 					if (event.target.nextSibling) {
 						toggleIcon(event)
 					}
-					if (props.onInput) {
-						props.onInput(event)
+					if (onInput) {
+						onInput(event)
 					}
 				}}
 			/>
-			{props.inline ? null : (
-				<CrossIcon className={`Input__icon ${props.value ? '' : 'hidden'}`} onClick={clearInput} />
+			{inline ? null : (
+				<CrossIcon className={`Input__icon ${value ? '' : 'hidden'}`} onClick={clearInput} />
 			)}
-			{/* onBlur={window.resize} */}
 		</span>
 	)
 }

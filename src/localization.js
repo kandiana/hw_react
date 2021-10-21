@@ -63,6 +63,10 @@ export const localization = {
 			h: 'ч',
 			min: 'мин',
 			showMore: 'Больше',
+			modal: {
+				runBuild: 'Собрать',
+				cancel: 'Отмена',
+			},
 		},
 
 		footer: {
@@ -137,6 +141,10 @@ export const localization = {
 			h: 'h',
 			min: 'min',
 			showMore: 'Show more',
+			modal: {
+				runBuild: 'Run build',
+				cancel: 'Cancel',
+			},
 		},
 
 		footer: {

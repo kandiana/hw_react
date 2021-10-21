@@ -9,39 +9,30 @@ import LinkButton from '../components/LinkButton'
 
 import './Start.css'
 
-function Start(props) {
-	let language = props.localization.language
+function Start({ localization }) {
+	let language = localization.language
 
 	const headerNavButton = (
-		<LinkButton
-			key="settings"
-			href="/settings"
-			buttonType="Button_small"
-			children={[
-				<CogIcon key="icon" className="Button__icon" />,
-				<span key="text" className="Button__text">
-					{props.localization[language].header.settings}
-				</span>,
-			]}
-		/>
+		<LinkButton key="settings" href="/settings" buttonType="Button_small">
+			<CogIcon key="icon" className="Button__icon" />
+			<span key="text" className="Button__text">
+				{localization[language].header.settings}
+			</span>
+		</LinkButton>
 	)
 
 	return (
 		<>
-			<Header
-				children={headerNavButton}
-				page="start"
-				title={props.localization[language].header.title}
-			/>
+			<Header page="start" title={localization[language].header.title}>
+				{headerNavButton}
+			</Header>
 			<main className="container Start">
-				<h2 className="title visually-hidden">{props.localization[language].start.title}</h2>
+				<h2 className="title visually-hidden">{localization[language].start.title}</h2>
 				<SettingsLogo />
-				<p className="Start__text">{props.localization[language].start.text}</p>
-				<LinkButton
-					href="/settings"
-					buttonType="Button_yellow"
-					children={props.localization[language].start.openSettings}
-				/>
+				<p className="Start__text">{localization[language].start.text}</p>
+				<LinkButton href="/settings" buttonType="Button_yellow">
+					{localization[language].start.openSettings}
+				</LinkButton>
 			</main>
 			<Footer />
 		</>
