@@ -17,7 +17,7 @@ function SettingsForm() {
 	const language = localization.language
 	const settingsFormLocalization = localization[language].settings.form
 
-	const { repository, buildCommand, mainBranch, interval } = useSelector((state) => state.settings)
+	const [settings, setSettings] = useState(useSelector((state) => state.settings))
 
 	const history = useHistory()
 
@@ -25,6 +25,15 @@ function SettingsForm() {
 
 	// to make error appear after first submit
 	const [responseOnSave, changeResponseState] = useState('error')
+
+	function handleInputChange(event) {
+		const target = event.target
+
+		setSettings((prev) => ({
+			...prev,
+			[target.name]: target.value,
+		}))
+	}
 
 	async function handleSubmittedForm(event) {
 		event.preventDefault()
@@ -52,25 +61,8 @@ function SettingsForm() {
 
 	function saveSettings(event) {
 		// save input settings
-		const newSettings = {}
-		const formElements = event.target.elements
-
-		formElements.forEach((element) => {
-			// saving only values from unempty inputs
-			if (element.tagName === 'INPUT' && element.name && element.value) {
-				if (element.dataset.value === 'number') {
-					newSettings[element.name] = Number(element.value)
-				} else {
-					newSettings[element.name] = element.value
-				}
-			}
-		})
-
-		dispatch(saveInputSettings(newSettings))
-
-		const oldSettings = JSON.parse(localStorage.getItem('settings'))
-		const wholeSettings = { ...oldSettings, ...newSettings }
-		localStorage.setItem('settings', JSON.stringify(wholeSettings))
+		dispatch(saveInputSettings(settings))
+		localStorage.setItem('settings', JSON.stringify(settings))
 
 		// go back to root address
 		history.push('/')
@@ -103,7 +95,8 @@ function SettingsForm() {
 						label={settingsFormLocalization.repository.label}
 						required={true}
 						placeholder={settingsFormLocalization.repository.placeholder}
-						value={repository}
+						value={settings.repository}
+						onChange={handleInputChange}
 						dataValue="text"
 						inputMode="text"
 					/>
@@ -113,7 +106,8 @@ function SettingsForm() {
 						label={settingsFormLocalization.buildCommand.label}
 						required={true}
 						placeholder={settingsFormLocalization.buildCommand.placeholder}
-						value={buildCommand}
+						value={settings.buildCommand}
+						onChange={handleInputChange}
 						dataValue="text"
 						inputMode="text"
 					/>
@@ -122,7 +116,8 @@ function SettingsForm() {
 						name="mainBranch"
 						label={settingsFormLocalization.mainBranch.label}
 						placeholder={settingsFormLocalization.mainBranch.placeholder}
-						value={mainBranch}
+						value={settings.mainBranch}
+						onChange={handleInputChange}
 						dataValue="text"
 						inputMode="text"
 					/>
@@ -130,10 +125,11 @@ function SettingsForm() {
 						id="synchronization-interval"
 						name="interval"
 						label={settingsFormLocalization.interval.label}
-						value={interval}
+						value={settings.interval}
 						oneline={true}
 						dimension={settingsFormLocalization.interval.dimension}
 						onInput={filterNonNumbers}
+						onChange={handleInputChange}
 						dataValue="number"
 						inputMode="numeric"
 					/>
