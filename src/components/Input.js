@@ -2,13 +2,32 @@ import { ReactComponent as CrossIcon } from '../imgs/cross-icon.svg'
 
 import './Input.css'
 
-function Input({ id, name, value, dataValue, placeholder, inputMode, required, onInput, inline }) {
+function Input({
+	id,
+	name,
+	value,
+	dataValue,
+	placeholder,
+	inputMode,
+	required,
+	onInput,
+	onChange,
+	inline,
+}) {
 	const inputClasses = `Input ${inline ? 'Input_inline' : ''}`
 
 	function clearInput(event) {
 		const target = event.target.closest('svg')
 		target.previousSibling.value = ''
 		target.classList.add('hidden')
+
+		const customEvent = {
+			target: {
+				name: target.previousSibling.name,
+				value: '',
+			},
+		}
+		onChange(customEvent)
 	}
 
 	function toggleIcon(event) {
@@ -39,6 +58,7 @@ function Input({ id, name, value, dataValue, placeholder, inputMode, required, o
 						onInput(event)
 					}
 				}}
+				onChange={onChange}
 			/>
 			{inline ? null : (
 				<CrossIcon className={`Input__icon ${value ? '' : 'hidden'}`} onClick={clearInput} />

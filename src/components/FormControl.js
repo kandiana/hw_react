@@ -13,6 +13,7 @@ function FormControl({
 	oneline,
 	required,
 	dimension,
+	onChange,
 }) {
 	const blockClasses = `Form-control ${oneline ? 'Form-control_oneline' : ''}`
 
@@ -30,6 +31,7 @@ function FormControl({
 					value={value}
 					required={required}
 					onInput={onInput}
+					onChange={onChange}
 					dataValue={dataValue}
 					inputMode={inputMode}
 				/>
