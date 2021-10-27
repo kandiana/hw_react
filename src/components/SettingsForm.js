@@ -33,6 +33,8 @@ function SettingsForm() {
 			...prev,
 			[target.name]: target.value,
 		}))
+
+		console.log(settings)
 	}
 
 	async function handleSubmittedForm(event) {
@@ -97,7 +99,6 @@ function SettingsForm() {
 						placeholder={settingsFormLocalization.repository.placeholder}
 						value={settings.repository}
 						onChange={handleInputChange}
-						dataValue="text"
 						inputMode="text"
 					/>
 					<FormControl
@@ -108,7 +109,6 @@ function SettingsForm() {
 						placeholder={settingsFormLocalization.buildCommand.placeholder}
 						value={settings.buildCommand}
 						onChange={handleInputChange}
-						dataValue="text"
 						inputMode="text"
 					/>
 					<FormControl
@@ -118,7 +118,6 @@ function SettingsForm() {
 						placeholder={settingsFormLocalization.mainBranch.placeholder}
 						value={settings.mainBranch}
 						onChange={handleInputChange}
-						dataValue="text"
 						inputMode="text"
 					/>
 					<FormControl
@@ -130,7 +129,6 @@ function SettingsForm() {
 						dimension={settingsFormLocalization.interval.dimension}
 						onInput={filterNonNumbers}
 						onChange={handleInputChange}
-						dataValue="number"
 						inputMode="numeric"
 					/>
 				</div>
