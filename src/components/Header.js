@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import useWindowSize from '../hooks/useWindowSize'
 
@@ -8,53 +8,49 @@ import './Header.css'
 
 function Header({ title, page, children }) {
 	// need to show/remove sticky header depending on window size
-	const windowHeight = useWindowSize()
+	const [windowHeight, windowWidth] = useWindowSize()
+	const header = useRef()
+	const [currentheaderHeight, setHeaderHeight] = useState(0)
 
 	useEffect(() => {
-		const header = document.querySelector('.Header')
-		const headerHeight = header.clientHeight
+		const headerHeight = header.current.clientHeight
+		setHeaderHeight(headerHeight)
 		const mockHeader = document.querySelector('.Mock-header')
-		mockHeader.style.minHeight = `${headerHeight}px`
-		mockHeader.style.maxHeight = `${headerHeight}px`
 
 		if (windowHeight > headerHeight * 5) {
-			header.classList.add('Header_sticky')
+			header.current.classList.add('Header_sticky')
 			mockHeader.classList.remove('hidden')
 		} else {
-			header.classList.remove('Header_sticky')
+			header.current.classList.remove('Header_sticky')
 			mockHeader.classList.add('hidden')
 		}
 
-		window.addEventListener('scroll', () => {
+		const toggleHeaderBorder = () => {
 			if (window.scrollY === 0) {
-				header.classList.remove('Header_bordered')
+				header.current.classList.remove('Header_bordered')
 			} else {
-				header.classList.add('Header_bordered')
+				header.current.classList.add('Header_bordered')
 			}
-		})
+		}
+
+		window.addEventListener('scroll', toggleHeaderBorder)
 
 		return () => {
-			window.removeEventListener('scroll', () => {
-				if (window.scrollY === 0) {
-					header.classList.remove('Header_bordered')
-				} else {
-					header.classList.add('Header_bordered')
-				}
-			})
+			window.removeEventListener('scroll', toggleHeaderBorder)
 		}
-	}, [windowHeight])
+	}, [windowHeight, windowWidth])
 
 	return (
 		<>
-			<header className="Header">
+			<header className="Header" ref={header}>
 				<div className="container Header__wrapper">
 					<MainTitle title={title} page={page} />
 					<nav>{children}</nav>
 				</div>
 			</header>
-			<div className="Mock-header"></div>
+			<div className="Mock-header" style={{ height: currentheaderHeight }}></div>
 		</>
 	)
 }
 
-export default Header
+export default React.memo(Header)

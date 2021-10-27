@@ -1,4 +1,5 @@
 import { ReactComponent as CrossIcon } from '../imgs/cross-icon.svg'
+import React, { useRef, useCallback, useEffect } from 'react'
 
 import './Input.css'
 
@@ -6,35 +7,51 @@ function Input({
 	id,
 	name,
 	value,
-	dataValue,
 	placeholder,
 	inputMode,
 	required,
+	focused,
 	onInput,
 	onChange,
 	inline,
 }) {
 	const inputClasses = `Input ${inline ? 'Input_inline' : ''}`
 
-	function clearInput(event) {
-		const target = event.target.closest('svg')
-		target.previousSibling.value = ''
-		target.classList.add('hidden')
+	const inputRef = useRef()
+	const toggleIconRef = useRef()
+
+	useEffect(() => {
+		if (focused) {
+			inputRef.current.focus()
+		}
+	})
+
+	const clearInput = useCallback(() => {
+		inputRef.current.value = ''
+		toggleIconRef.current.classList.add('hidden')
 
 		const customEvent = {
-			target: {
-				name: target.previousSibling.name,
-				value: '',
-			},
+			target: inputRef.current,
 		}
 		onChange(customEvent)
+	}, [onChange])
+
+	const toggleIcon = () => {
+		if (!toggleIconRef.current) {
+			return
+		}
+
+		if (!inputRef.current.value) {
+			toggleIconRef.current.classList.add('hidden')
+		} else {
+			toggleIconRef.current.classList.remove('hidden')
+		}
 	}
 
-	function toggleIcon(event) {
-		if (!event.target.value) {
-			event.target.nextSibling.classList.add('hidden')
-		} else {
-			event.target.nextSibling.classList.remove('hidden')
+	const handleInput = (event) => {
+		toggleIcon(event)
+		if (onInput) {
+			onInput(event)
 		}
 	}
 
@@ -45,23 +62,20 @@ function Input({
 				type="text"
 				placeholder={placeholder}
 				name={name}
-				defaultValue={value ? value : ''}
-				data-value={dataValue}
+				value={value ? value : ''}
 				inputMode={inputMode}
 				className={inputClasses}
 				required={required}
-				onInput={(event) => {
-					if (event.target.nextSibling) {
-						toggleIcon(event)
-					}
-					if (onInput) {
-						onInput(event)
-					}
-				}}
+				onInput={handleInput}
 				onChange={onChange}
+				ref={inputRef}
 			/>
 			{inline ? null : (
-				<CrossIcon className={`Input__icon ${value ? '' : 'hidden'}`} onClick={clearInput} />
+				<CrossIcon
+					className={`Input__icon ${value ? '' : 'hidden'}`}
+					onClick={clearInput}
+					ref={toggleIconRef}
+				/>
 			)}
 		</span>
 	)

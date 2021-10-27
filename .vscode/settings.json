@@ -1,4 +1,7 @@
 {
+	"files.eol": "\r\n",
+	"prettier.endOfLine": "crlf",
+	"prettier.semi": false,
 	"prettier.useTabs": true,
-	"prettier.semi": false
+	"editor.tabSize": 2
 }

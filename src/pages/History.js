@@ -16,6 +16,7 @@ import ModalWindow from '../components/ModalWindow'
 import NewBuildForm from '../components/NewBuildForm'
 
 import './History.css'
+import { useCallback } from 'react'
 
 function History() {
 	const dispatch = useDispatch()
@@ -24,6 +25,13 @@ function History() {
 
 	const build = useSelector((state) => state.build)
 	const { repository } = useSelector((state) => state.settings)
+
+	// modal window behaviour control
+	const [modalWindowShown, changeModalWindowState] = useState(false)
+
+	const openModalWindow = useCallback(() => {
+		changeModalWindowState((current) => !current)
+	}, [])
 
 	const headerNavButtons = [
 		<Button key="build" buttonType="Button_small" onClick={openModalWindow}>
@@ -45,13 +53,12 @@ function History() {
 		return () => {
 			dispatch(clearBuildHistory())
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+	}, [dispatch])
 
 	// if not all build cards are shown, render 'show more' button
 	const showMoreButtonType = `Button_changing-size ${build.renderMore ? '' : 'hidden'}`
 
-	function renderCards() {
+	const renderCards = () => {
 		const arrayOfCards = []
 
 		build.history.forEach((commit) =>
@@ -68,16 +75,9 @@ function History() {
 	}
 
 	// renders next batch of build cards
-	function showMore() {
+	const showMore = useCallback(() => {
 		dispatch(addBuildHistoryItems())
-	}
-
-	// modal window behaviour control
-	const [modalWindowShown, changeModalWindowState] = useState(false)
-
-	function openModalWindow() {
-		changeModalWindowState((current) => !current)
-	}
+	}, [dispatch])
 
 	return (
 		<>

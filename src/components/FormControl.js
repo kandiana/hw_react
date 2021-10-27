@@ -6,7 +6,6 @@ function FormControl({
 	label,
 	name,
 	value,
-	dataValue,
 	placeholder,
 	inputMode,
 	onInput,
@@ -32,7 +31,6 @@ function FormControl({
 					required={required}
 					onInput={onInput}
 					onChange={onChange}
-					dataValue={dataValue}
 					inputMode={inputMode}
 				/>
 			</label>
