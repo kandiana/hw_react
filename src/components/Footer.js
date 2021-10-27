@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
 
 import { changeLanguage } from '../store/actions/localization'
 
@@ -11,14 +12,13 @@ function Footer() {
 	const localization = useSelector((state) => state.localization)
 	let language = localization.language
 
-	function blockLink(event) {
+	const blockLink = (event) => {
 		event.preventDefault()
 	}
 
-	function changeLocalization(event) {
+	const changeLocalization = (event) => {
 		event.preventDefault()
-		language = language === 'rus' ? 'eng' : 'rus'
-		dispatch(changeLanguage(language))
+		dispatch(changeLanguage(language === 'rus' ? 'eng' : 'rus'))
 	}
 
 	return (
@@ -41,4 +41,4 @@ function Footer() {
 	)
 }
 
-export default Footer
+export default React.memo(Footer)

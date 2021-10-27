@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import { useState, useCallback } from 'react'
 
 import Input from './Input'
 import Button from './Button'
@@ -10,10 +11,22 @@ function NewBuildForm({ modalWindowControl }) {
 	const language = localization.language
 	const buildLocalization = localization[language].buildHistory
 
-	function closeModalWindow(event) {
-		event.preventDefault()
-		modalWindowControl((current) => !current)
-	}
+	const [hash, setHash] = useState('')
+
+	const closeModalWindow = useCallback(
+		(event) => {
+			event.preventDefault()
+			modalWindowControl((current) => !current)
+			setHash('')
+		},
+		[modalWindowControl]
+	)
+
+	const handleInputChange = useCallback((event) => {
+		const target = event.target
+
+		setHash(target.value)
+	}, [])
 
 	// label catches click of focuses on input after field clearing
 	return (
@@ -26,7 +39,10 @@ function NewBuildForm({ modalWindowControl }) {
 					placeholder={buildLocalization.modal.placeholder}
 					name="commitHash"
 					data-value="text"
-					inputmode="text"
+					inputMode="text"
+					value={hash}
+					onChange={handleInputChange}
+					focused={true}
 				/>
 			</label>
 			<div className="New-build-form__form-buttons">

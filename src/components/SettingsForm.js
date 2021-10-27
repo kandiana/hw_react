@@ -10,6 +10,7 @@ import Button from './Button'
 import ModalWindow from './ModalWindow'
 
 import './SettingsForm.css'
+import { useCallback } from 'react'
 
 function SettingsForm() {
 	const dispatch = useDispatch()
@@ -26,18 +27,33 @@ function SettingsForm() {
 	// to make error appear after first submit
 	const [responseOnSave, changeResponseState] = useState('error')
 
-	function handleInputChange(event) {
+	// modal window behaviour control
+	const [modalWindowShown, changeModalWindowState] = useState(false)
+
+	const toggleModalWindow = useCallback(() => {
+		changeModalWindowState((current) => !current)
+	}, [])
+
+	// input controls
+	const handleInputChange = useCallback((event) => {
 		const target = event.target
 
 		setSettings((prev) => ({
 			...prev,
 			[target.name]: target.value,
 		}))
+	}, [])
 
-		console.log(settings)
+	const saveSettings = () => {
+		// save input settings
+		dispatch(saveInputSettings(settings))
+		localStorage.setItem('settings', JSON.stringify(settings))
+
+		// go back to root address
+		history.push('/')
 	}
 
-	async function handleSubmittedForm(event) {
+	const handleSubmittedForm = (event) => {
 		event.preventDefault()
 
 		event.target.blur()
@@ -61,31 +77,18 @@ function SettingsForm() {
 		}, 2000)
 	}
 
-	function saveSettings(event) {
-		// save input settings
-		dispatch(saveInputSettings(settings))
-		localStorage.setItem('settings', JSON.stringify(settings))
-
-		// go back to root address
-		history.push('/')
-	}
-
 	// go back to root address
-	function goBack(event) {
-		event.preventDefault()
-		history.push('/')
-	}
+	const goBack = useCallback(
+		(event) => {
+			event.preventDefault()
+			history.push('/')
+		},
+		[history]
+	)
 
-	function filterNonNumbers(event) {
+	const filterNonNumbers = useCallback((event) => {
 		event.target.value = event.target.value.replace(/\D/g, '')
-	}
-
-	// modal window behaviour control
-	const [modalWindowShown, changeModalWindowState] = useState(false)
-
-	function toggleModalWindow() {
-		changeModalWindowState((current) => !current)
-	}
+	}, [])
 
 	return (
 		<>

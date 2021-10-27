@@ -17,15 +17,26 @@ function BuildCard({ id, status, content }) {
 	const language = localization.language
 
 	//setting icon shape and color depending on build status
-	const statusColor = `var(--color-${status})`
 	const iconElement = () => {
 		switch (status) {
 			case 'ok':
-				return <OkIcon className="Build-card__status-icon" style={{ fill: statusColor }} />
+				return (
+					<OkIcon className="Build-card__status-icon" style={{ fill: `var(--color-${status})` }} />
+				)
 			case 'error':
-				return <ErrorIcon className="Build-card__status-icon" style={{ fill: statusColor }} />
+				return (
+					<ErrorIcon
+						className="Build-card__status-icon"
+						style={{ fill: `var(--color-${status})` }}
+					/>
+				)
 			case 'timeout':
-				return <TimeoutIcon className="Build-card__status-icon" style={{ fill: statusColor }} />
+				return (
+					<TimeoutIcon
+						className="Build-card__status-icon"
+						style={{ fill: `var(--color-${status})` }}
+					/>
+				)
 			default:
 				return null
 		}
@@ -45,7 +56,11 @@ function BuildCard({ id, status, content }) {
 			{iconElement()}
 			<div className="Build-card__content">
 				<div className="Build-card__commit">
-					<BuildTitle number={id} color={statusColor} commitMessage={content.commit.message} />
+					<BuildTitle
+						number={id}
+						color={`var(--color-${status})`}
+						commitMessage={content.commit.message}
+					/>
 					<CommitInfo
 						branch={content.commit.branch}
 						hash={content.commit.hash}

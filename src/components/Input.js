@@ -1,36 +1,57 @@
 import { ReactComponent as CrossIcon } from '../imgs/cross-icon.svg'
-import { useRef } from 'react'
+import React, { useRef, useCallback, useEffect } from 'react'
 
 import './Input.css'
 
-function Input({ id, name, value, placeholder, inputMode, required, onInput, onChange, inline }) {
+function Input({
+	id,
+	name,
+	value,
+	placeholder,
+	inputMode,
+	required,
+	focused,
+	onInput,
+	onChange,
+	inline,
+}) {
 	const inputClasses = `Input ${inline ? 'Input_inline' : ''}`
 
 	const inputRef = useRef()
+	const toggleIconRef = useRef()
 
-	function clearInput(event) {
-		const target = event.target.closest('svg')
+	useEffect(() => {
+		if (focused) {
+			inputRef.current.focus()
+		}
+	})
+
+	const clearInput = useCallback(() => {
 		inputRef.current.value = ''
-		target.classList.add('hidden')
+		toggleIconRef.current.classList.add('hidden')
 
 		const customEvent = {
 			target: inputRef.current,
 		}
 		onChange(customEvent)
-	}
+	}, [onChange])
 
-	function handleInput(event) {
-		toggleIcon(event)
-		if (onInput) {
-			onInput(event)
+	const toggleIcon = () => {
+		if (!toggleIconRef.current) {
+			return
+		}
+
+		if (!inputRef.current.value) {
+			toggleIconRef.current.classList.add('hidden')
+		} else {
+			toggleIconRef.current.classList.remove('hidden')
 		}
 	}
 
-	function toggleIcon(event) {
-		if (!event.target.value) {
-			event.target.nextSibling.classList.add('hidden')
-		} else {
-			event.target.nextSibling.classList.remove('hidden')
+	const handleInput = (event) => {
+		toggleIcon(event)
+		if (onInput) {
+			onInput(event)
 		}
 	}
 
@@ -50,7 +71,11 @@ function Input({ id, name, value, placeholder, inputMode, required, onInput, onC
 				ref={inputRef}
 			/>
 			{inline ? null : (
-				<CrossIcon className={`Input__icon ${value ? '' : 'hidden'}`} onClick={clearInput} />
+				<CrossIcon
+					className={`Input__icon ${value ? '' : 'hidden'}`}
+					onClick={clearInput}
+					ref={toggleIconRef}
+				/>
 			)}
 		</span>
 	)
