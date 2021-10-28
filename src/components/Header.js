@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import useWindowSize from '../hooks/useWindowSize'
 
@@ -10,19 +10,14 @@ function Header({ title, page, children }) {
 	// need to show/remove sticky header depending on window size
 	const [windowHeight, windowWidth] = useWindowSize()
 	const header = useRef()
-	const [currentheaderHeight, setHeaderHeight] = useState(0)
 
 	useEffect(() => {
 		const headerHeight = header.current.clientHeight
-		setHeaderHeight(headerHeight)
-		const mockHeader = document.querySelector('.Mock-header')
 
 		if (windowHeight > headerHeight * 5) {
 			header.current.classList.add('Header_sticky')
-			mockHeader.classList.remove('hidden')
 		} else {
 			header.current.classList.remove('Header_sticky')
-			mockHeader.classList.add('hidden')
 		}
 
 		const toggleHeaderBorder = () => {
@@ -48,7 +43,6 @@ function Header({ title, page, children }) {
 					<nav>{children}</nav>
 				</div>
 			</header>
-			<div className="Mock-header" style={{ height: currentheaderHeight }}></div>
 		</>
 	)
 }

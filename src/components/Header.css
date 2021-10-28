@@ -1,9 +1,10 @@
 .Header {
-	padding: 12px 0;
+	padding: 12px 0 11px;
+	border-bottom: 1px solid transparent;
 }
 
 .Header_sticky {
-	position: fixed;
+	position: sticky;
 	top: 0;
 	left: 0;
 	right: 0;
@@ -29,6 +30,6 @@
 
 @media (min-width: 480px) {
 	.Header {
-		padding: 10px 0;
+		padding: 10px 0 9px;
 	}
 }
