@@ -51,6 +51,12 @@ body {
 	overflow-y: scroll;
 }
 
+.body_modal {
+	position: fixed;
+	left: 0;
+	right: 0;
+}
+
 #root {
 	display: flex;
 	flex-direction: column;

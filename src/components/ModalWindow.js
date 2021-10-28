@@ -7,18 +7,13 @@ function ModalWindow({ hidden, children }) {
 	const showModal = () => {
 		document.body.style.top = `${-window.scrollY}px`
 		updateScrollPosition(window.scrollY)
-		document.body.style.left = 0
-		document.body.style.right = 0
-		document.body.style.position = 'fixed'
+		document.body.classList.add('body_modal')
 	}
 
 	const hideModal = () => {
-		document.body.style.position = ''
+		document.body.classList.remove('body_modal')
 		window.scrollTo(0, scrollPosition)
 		updateScrollPosition(window.scrollY)
-		document.body.style.top = ''
-		document.body.style.left = ''
-		document.body.style.right = ''
 	}
 
 	useEffect(() => {
@@ -27,7 +22,8 @@ function ModalWindow({ hidden, children }) {
 		} else {
 			showModal()
 		}
-	})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [hidden])
 
 	return (
 		<div className={`Modal-window-box ${hidden ? 'hidden' : ''}`}>
