@@ -12,7 +12,7 @@ const settingsReducer = (state = initialState, action) => {
 		case READ_SETTINGS_FROM_LOCAL_STORAGE:
 			return {
 				...state,
-				...JSON.parse(localStorage.getItem('settings')),
+				...JSON.parse(sessionStorage.getItem('settings')),
 			}
 
 		case SAVE_INPUT_SETTINGS:

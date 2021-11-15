@@ -47,7 +47,7 @@ function SettingsForm() {
 	const saveSettings = () => {
 		// save input settings
 		dispatch(saveInputSettings(settings))
-		localStorage.setItem('settings', JSON.stringify(settings))
+		sessionStorage.setItem('settings', JSON.stringify(settings))
 
 		// go back to root address
 		history.push('/')
